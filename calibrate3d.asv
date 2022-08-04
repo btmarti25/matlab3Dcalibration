@@ -31,30 +31,25 @@ cam_parms = get_cam_parms(cam_images,options);
 toc
 
 
-%% testing the accuracy of the calibration, with a known length object (distance between cam A and B 1 m)
-
-% read in two images
+%% testing the accuracy of the cal
 A=imread("calib_images/1/im_008471.jpg");
 B=imread("calib_images/2/im_008471.jpg");
 
-% undistort images
-A = undistortImage(A,stereoParams.CameraParameters1);
-B = undistortImage(B,stereoParams.CameraParameters2);
-
-% show images and calculate pixel coords of the cam A and B
+I1 = undistortImage(A,stereoParams.CameraParameters1);
+I2 = undistortImage(B,stereoParams.CameraParameters2);
 imshow(A)
-imshow(B)
-% below I hard coded values I measured
+imshow(I1)
+
 lc1=[1683,530]
 rc1=[1919,536]
 lc2=[1645,616]
 rc2=[1893,634]
 
-%calculate 3d pos of left cam
+%left cam
 point3d_lr = triangulate(lc1, lc2, stereoParams);
-
-%calculate 3d pos of right cam
+point3d_lr
+%right cam
 point3d_rc = triangulate(rc1, rc2, stereoParams);
+point3d_rc
 
-% calc inter-camera distance (ans = 1.001 m)
 sqrt(sum((point3d_lr-point3d_rc).^2))
