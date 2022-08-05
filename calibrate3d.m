@@ -30,6 +30,11 @@ cam_parms = get_cam_parms(cam_images,options);
 
 toc
 
+%% reformat parameters for use in openCV
+
+[intrinsicMatrix1,distortionCoefficients1,intrinsicMatrix2, ...
+   distortionCoefficients2,rotationOfCamera2,translationOfCamera2] =... 
+   stereoParametersToOpenCV(stereoParams);
 
 %% testing the accuracy of the calibration, with a known length object (distance between cam A and B 1 m)
 
